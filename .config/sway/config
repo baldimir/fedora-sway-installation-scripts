@@ -217,8 +217,8 @@ bar {
     mode hide
 
     status_command ~/.local/bin/bumblebee-status \
-     -m progress weather battery pasink pasource date time \
-     -p date.format="%d.%m.%Y" time.format="%H:%M" weather.location=auto,Brno \
+     -m progress weather battery pasink pasource datetime \
+     -p datetime.format="%d.%m.%Y %H:%M" weather.location=auto,Brno \
      -t iceberg
 
     colors {

@@ -1,0 +1,5 @@
+
+[Default Applications]
+image/*=com.github.weclaw1.ImageRoll.desktop
+video/*=org.videolan.VLC.desktop
+application/pdf=org.gnome.Evince.desktop

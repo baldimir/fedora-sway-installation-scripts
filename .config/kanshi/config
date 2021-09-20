@@ -1,0 +1,9 @@
+profile {
+    output "Dell Inc. Dell AW3418DW #ASMNQSHpe77d" mode "3440x1440@120Hz"
+    output eDP-1 disable
+}
+
+profile {
+    output eDP-1 mode "1920x1080@60Hz"
+    output eDP-1 enable
+}

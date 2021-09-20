@@ -1,0 +1,126 @@
+# Bitwarden CLI functions 
+
+# Logs in into the Bitwarden CLI interface and sets the environment variable BW_SESSION 
+# defining the Bitwarden session for future Bitwarden CLI commands. 
+function bwopen() {
+    if [ -z $BW_SESSION ];
+    then
+        export BW_SESSION=`bw unlock --raw`
+        if [ -z $BW_SESSION ];
+        then
+            export BW_SESSION=`bw login "$1" --raw`
+            if [ -z $BW_SESSION ];
+            then
+                echo 'Bitwarden login unsuccessful! Please try the login directly with Bitwarden CLI for debugging purposes.'
+            else
+                echo 'Bitwarden login successful. Session token set to environment variable BW_SESSION.'
+            fi
+        fi 
+    else
+        echo "Environment variable BW_SESSION is already set. Skipping Bitwarden login."
+    fi 
+}
+
+# Locks the Bitwarden vault and clears the BW_SESSION property. 
+function bwclose() {
+    bw lock
+    unset BW_SESSION
+}
+
+# Reads a password from Bitwarden into clipboard.
+function bwpassword() {
+    bwopen
+    bw get password $1 | wl-copy
+}
+
+# Reads a TOTP token from Bitwarden into clipboard.
+function bwtoken() {
+    bwopen
+    bw get totp $1 | wl-copy
+}
+
+# Searches for Bitwarden items.
+# Parameters:
+#     - Search string
+#     - Filter for returned JSON reply. If filter contains the word "first",
+#       it will return the first result from the list returned. 
+function bwsearch() {
+    bwopen
+    if [ "$2" == "first" ]; 
+    then
+        bw list items --search $1 | jq '.[0]'
+    else
+        bw list items --search $1 | jq $2
+    fi
+}
+
+# Network handling functions
+
+# Connects to a VPN network automatically.
+# Requires user to log in to Bitwarden CLI, if the user is not logged in. Otherwise the method requires
+# no user input. 
+# Parameters: 
+#     - VPN network name
+#     - Bitwarden single sign-on item name or id (ID from Bitwarden CLI). The name must be specific enough
+#       for Bitwarden CLI search (bw list items --search specifiedname) to return a single result.  
+# Example usage: 
+#     vpnconnect SomeNiceVPN namefortheitemstoringthepassword
+function vpnconnect() {
+    bwopen
+    echo "vpn.secrets.password:$(bw get password $2)$(bw get totp $2)" > /tmp/gugoirerfsdagfasdgfasdgfasdv
+    nmcli con up "$1" passwd-file /tmp/gugoirerfsdagfasdgfasdgfasdv
+    rm -f /tmp/gugoirerfsdagfasdgfasdgfasdv
+}
+
+function wificonnect() {
+    ssid=$1
+    password=$2
+    if [ -z $password ];
+    then
+        nmcli device wifi connect $ssid --ask
+    else
+        nmcli device wifi connect $ssid password $password
+    fi
+}
+
+# Notes 
+function note {
+    echo $1 >> ~/notes.txt
+}
+
+function readnotes {
+    if [ -z $1 ]; 
+    then
+        tail -n 5 ~/notes.txt
+    else 
+        tail -n $1 ~/notes.txt
+    fi
+}
+
+function clearnotes {
+    rm ~/notes.txt
+    touch ~/notes.txt
+}
+
+# Update everything
+function updateeverything {
+    echo 'Updating system...'
+    dnfu -y
+    echo 'Updating system done.'
+    echo 'Updating Flatpaks...'
+    flatpak upgrade -y
+    echo 'Updating Flatpaks done.'
+    promptreboot
+}
+
+# Reboot prompt
+function promptreboot {
+    read -r -p "Do you want to reboot? [Y/n] " input
+    case $input in 
+        [yY][eE][sS]|[yY]) 
+            echo "Yes" 
+            systemctl reboot
+            ;;
+        *) echo "No" ;;
+    esac
+}

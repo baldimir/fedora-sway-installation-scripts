@@ -1,0 +1,26 @@
+# Network
+alias vpnup="vpnconnect vpnmain mainwork"
+alias vpndown="nmcli con down vpnmain"
+alias wifilist="nmcli device wifi list"
+
+# Translations
+alias trsk="trans :sk"
+alias tren="trans :en"
+
+# Package management
+alias dnfu="sudo dnf update --refresh"
+alias dnfi="sudo dnf install"
+alias dnfr="sudo dnf remove"
+alias dnfs="dnf search"
+
+# Git
+alias girb="git pull --rebase"
+alias gic="git commit -m"
+alias gip="git push origin main"
+alias gia="git add ."
+alias gis="git status"
+
+# Others 
+alias sr=sway-run
+alias playbs="xdg-open https://www.youtube.com/watch?v=GR2o6k8aPlI"
+alias clcl="wl-copy -c"

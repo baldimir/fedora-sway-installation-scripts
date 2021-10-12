@@ -26,7 +26,8 @@ sudo dnf install sway swaylock swayidle bemenu j4-dmenu-desktop light mako slurp
      vim translate-shell mc htop pavucontrol progress fwupd \ 
      ibm-plex-mono-fonts fontawesome-fonts powerline-fonts \ 
      playerctl flatpak \ 
-     gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg -y
+     gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg \ 
+     libvdpau-va-gl libva-vdpau-driver -y
 pip install --user bumblebee-status
 
 # Enable flathub

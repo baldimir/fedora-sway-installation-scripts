@@ -12,3 +12,5 @@ flatpak install flathub org.signal.Signal \
 	org.videolan.VLC \
         org.gnome.Evince \
         com.github.weclawl.ImageRoll -y	
+
+curl -s "https://get.sdkman.io" | bash

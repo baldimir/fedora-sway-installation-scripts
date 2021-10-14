@@ -27,7 +27,8 @@ sudo dnf install sway swaylock swayidle bemenu j4-dmenu-desktop light mako slurp
      ibm-plex-mono-fonts fontawesome-fonts powerline-fonts \ 
      playerctl flatpak \ 
      gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg \ 
-     libvdpau-va-gl libva-vdpau-driver -y
+     libvdpau-va-gl libva-vdpau-driver \ 
+     firefox firefox-wayland -y
 pip install --user bumblebee-status
 
 # Enable flathub
@@ -63,9 +64,7 @@ then
     cp .dircolors ~/.dircolors
 fi
 
-# Install Firefox so at least a browser is available
-flatpak install flathub org.mozilla.firefox -y
-xdg-settings set default-web-browser org.mozilla.Firefox.desktop
+xdg-settings set default-web-browser firefox-wayland
 
 # Install extras
 sudo chmod +x ./extras.sh

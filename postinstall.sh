@@ -38,7 +38,8 @@ if [ $PWD != $HOME ]
 then
     # Copy Sway configuration
     mkdir -p ~/.config/sway/
-    cp .config/sway/config ~/.config/sway/config
+    cp .config/sway/* ~/.config/sway/
+    sudo chmod +x ~/.config/sway/autostart.sh
     mkdir -p ~/.local/bin
     cp .local/bin/sway-run ~/.local/bin/sway-run
     sudo chmod +x ~/.local/bin/sway-run

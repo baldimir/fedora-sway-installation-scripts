@@ -147,7 +147,7 @@ bindsym $mod+a focus parent
 
 # Lock and turn off the screen
 bindsym $mod+Control+l exec $swaylockcmd && swayidle -w \
-  timeout 10 'swaymsg "output * dpms off"' \
+  timeout 2 'swaymsg "output * dpms off"' \
   resume 'swaymsg "output * dpms on "; pkill -nx swayidle'
 
 # Move the currently focused window to the scratchpad

@@ -30,6 +30,7 @@ sudo dnf install sway swaylock swayidle bemenu j4-dmenu-desktop light mako slurp
      libvdpau-va-gl libva-vdpau-driver \ 
      firefox firefox-wayland -y
 pip install --user bumblebee-status
+pip install pulsemixer
 
 # Enable flathub
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

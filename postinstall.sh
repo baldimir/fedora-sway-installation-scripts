@@ -25,12 +25,12 @@ sudo dnf install sway swaylock swayidle bemenu j4-dmenu-desktop light mako slurp
      xdg-desktop-portal xdg-desktop-portal-wlr wl-clipboard pulseaudio-utils \ 
      vim translate-shell mc htop pavucontrol progress fwupd \ 
      ibm-plex-mono-fonts fontawesome-fonts powerline-fonts \ 
-     playerctl flatpak \ 
+     playerctl flatpak python3-pip \ 
      gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg \ 
      libvdpau-va-gl libva-vdpau-driver \ 
      firefox firefox-wayland -y
 pip install --user bumblebee-status
-pip install pulsemixer
+pip install --user pulsemixer
 
 # Enable flathub
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

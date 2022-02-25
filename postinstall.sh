@@ -11,18 +11,18 @@ read -r -p "Do you want to reboot at the end of the installation? [y/n] " reboot
 sudo pacman -Syu --noconfirm
 
 # Install Sway and other packages that are used in the desktop
-sudo pacman -S --noconfirm sway swaylock swayidle bemenu light mako slurp grim kanshi \
+sudo pacman -S sway swaylock swayidle bemenu light mako slurp grim kanshi \
      xdg-desktop-portal xdg-desktop-portal-wlr wl-clipboard \
      alacritty vim translate-shell mc htop pavucontrol progress fwupd \
      ttf-ibm-plex awesome-terminal-fonts powerline-fonts \
      playerctl flatpak python-pip ffmpeg \
      libvdpau-va-gl libva-vdpau-driver \ 
-     firefox
+     firefox --noconfirm
 pip install --user bumblebee-status
 pip install --user pulsemixer
 
 # Install from AUR
-yay -S --noconfirm j4-dmenu-desktop, wdisplays
+yay -S j4-dmenu-desktop, wdisplays --noconfirm
 
 # TODO find out what to do about
 # pulseaudio-utils

@@ -1,4 +1,4 @@
 #!/bin/sh
 
-sudo pacman -S --noconfirm openvpn networkmanager-openvpn
+sudo pacman -S openvpn networkmanager-openvpn --noconfirm
 

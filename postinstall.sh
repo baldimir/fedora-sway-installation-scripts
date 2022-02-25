@@ -2,7 +2,6 @@
 
 read -r -p "Do you want to install extras? [y/n] " installextras
 read -r -p "Do you want to install VPN? [y/n] " installvpn
-read -r -p "What is your timezone? " currenttimezone
 read -r -p "Do you want to setup wallpapers? [y/n] " setupwallpapers
 read -r -p "Do you want to setup default bitrate in PipeWire for audio? If yes, specify the bitrate: " pipewirebitrate
 read -r -p "Do you want to setup allowed bitrates in PipeWire for audio? If yes, specify the bitrates (comma separated list): " pipewireallowedbitrates
@@ -83,8 +82,6 @@ case $installvpn in
     [yY][eE][sS]|[yY]) sh ./vpninstall.sh;;
     *) echo "Skipping VPN installation."
 esac
-
-sudo timedatectl set-timezone $currenttimezone
 
 # Setup wallpapers
 sudo chmod +x wallpapers.sh

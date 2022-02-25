@@ -10,11 +10,6 @@ read -r -p "Do you want to reboot at the end of the installation? [y/n] " reboot
 # Update the system
 sudo pacman -Syu --noconfirm
 
-# Install rpm-fusion repositories
-sudo dnf install \
-    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
-
 # Install Sway and other packages that are used in the desktop
 sudo pacman -S --noconfirm sway swaylock swayidle bemenu light mako slurp grim kanshi \
      xdg-desktop-portal xdg-desktop-portal-wlr wl-clipboard \

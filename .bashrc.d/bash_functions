@@ -105,7 +105,7 @@ function clearnotes {
 # Update everything
 function updateeverything {
     echo 'Updating system...'
-    dnfu -y
+    pacu --noconfirm
     echo 'Updating system done.'
     echo 'Updating Flatpaks...'
     flatpak upgrade -y

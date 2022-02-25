@@ -2,7 +2,6 @@
 
 read -r -p "Do you want to install extras? [y/n] " installextras
 read -r -p "Do you want to install VPN? [y/n] " installvpn
-read -r -p "Do you want to install RPMs from customrpms directory? [y/n] " installcustomrpms
 read -r -p "What is your timezone? " currenttimezone
 read -r -p "Do you want to setup wallpapers? [y/n] " setupwallpapers
 read -r -p "Do you want to setup default bitrate in PipeWire for audio? If yes, specify the bitrate: " pipewirebitrate
@@ -10,10 +9,7 @@ read -r -p "Do you want to setup allowed bitrates in PipeWire for audio? If yes,
 read -r -p "Do you want to reboot at the end of the installation? [y/n] " rebootattheend
 
 # Update the system
-sudo dnf upgrade -y
-
-# Install additional package groups
-sudo dnf groupinstall "Standard" "Common NetworkManager Submodules" "Hardware Support" "Multimedia" "Printing Support" -y
+sudo pacman -Syu --noconfirm
 
 # Install rpm-fusion repositories
 sudo dnf install \
@@ -21,16 +17,21 @@ sudo dnf install \
     https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 
 # Install Sway and other packages that are used in the desktop
-sudo dnf install sway swaylock swayidle bemenu j4-dmenu-desktop light mako slurp grim kanshi wdisplays \
-     xdg-desktop-portal xdg-desktop-portal-wlr wl-clipboard pulseaudio-utils \ 
-     vim translate-shell mc htop pavucontrol progress fwupd \ 
-     ibm-plex-mono-fonts fontawesome-fonts powerline-fonts \ 
-     playerctl flatpak python3-pip \ 
-     gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg \ 
+sudo pacman -S --noconfirm sway swaylock swayidle bemenu light mako slurp grim kanshi \
+     xdg-desktop-portal xdg-desktop-portal-wlr wl-clipboard \
+     alacritty vim translate-shell mc htop pavucontrol progress fwupd \
+     ttf-ibm-plex awesome-terminal-fonts powerline-fonts \
+     playerctl flatpak python-pip ffmpeg \
      libvdpau-va-gl libva-vdpau-driver \ 
-     firefox firefox-wayland -y
+     firefox
 pip install --user bumblebee-status
 pip install --user pulsemixer
+
+# Install from AUR
+yay -S --noconfirm j4-dmenu-desktop, wdisplays
+
+# TODO find out what to do about
+# pulseaudio-utils
 
 # Enable flathub
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -66,7 +67,8 @@ then
     cp .dircolors ~/.dircolors
 fi
 
-xdg-settings set default-web-browser firefox-wayland
+# TODO
+# xdg-settings set default-web-browser firefox
 
 # Install extras
 sudo chmod +x ./extras.sh
@@ -80,12 +82,6 @@ sudo chmod +x ./vpninstall.sh
 case $installvpn in 
     [yY][eE][sS]|[yY]) sh ./vpninstall.sh;;
     *) echo "Skipping VPN installation."
-esac
-
-# Install custom RPMs
-case $installcustomrpms in 
-    [yY][eE][sS]|[yY]) sudo dnf localinstall ./customrpms/*.rpm -y;;
-    *) echo "Skipping installation of RPMs from directory customrpms.";;
 esac
 
 sudo timedatectl set-timezone $currenttimezone

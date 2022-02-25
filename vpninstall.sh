@@ -1,4 +1,4 @@
 #!/bin/sh
 
-sudo dnf install openvpn NetworkManager-openvpn -y
+sudo pacman -S --noconfirm openvpn networkmanager-openvpn
 
